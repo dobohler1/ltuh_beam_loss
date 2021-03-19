@@ -1,0 +1,17 @@
+change ele beginning e_tot @10.5e9
+use var correctors.x[5:18]
+set var correctors.x|meas =0
+set var correctors.x|weight =1e8
+use dat loss.rel_point
+set dat loss.rel_point|weight = 1
+sho dat
+set lattice model=design
+set dat loss.rel_point|ele_name = DTDUND2
+set dat loss.rel_point|meas = 2385 - 2271
+set ele rcoll::* x1_limit = 20e-3
+set ele rcoll::* x2_limit = 20e-3
+scycles 5
+sde 1000
+ode
+run
+show -write optOutput.txt var -good -bmad

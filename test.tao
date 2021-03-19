@@ -1,0 +1,27 @@
+!place floor orbit
+!x-a all s
+!sc
+!sc floor -20 20
+
+x-s all 1210.097085 1327
+vv
+!vd
+set dat orbit.x|meas = 0
+use dat orbit.x[1:18]
+
+
+! Turn off collimators
+set ele rcoll::* x1_limit = 45e-3
+set ele rcoll::* x2_limit = 45e-3
+
+use var correctors.x[1:18]
+
+set dat loss.rel_point|meas = -500
+!set dat loss.point|meas = -500
+!veto dat  loss.point
+
+run
+
+show -write optOutput.txt var -good -bmad
+
+
